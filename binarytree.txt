@@ -1,0 +1,91 @@
+#include<stdio.h>
+#include<conio.h>
+#include<stdlib.h>
+
+struct binary{
+	int data;
+	struct binary *l;
+	struct binary *r;
+	
+};
+ struct binary *newnode(int data){
+ struct binary *next= (struct binary *)malloc(sizeof(struct binary));
+	next->data=data;
+	next->l=NULL;
+	next->r=NULL;
+	return(next);
+  }
+  int maxDepth(struct binary *node)  
+{ 
+   if (node==NULL)  
+       return 0; 
+   else 
+   { 
+       // compute the depth of each  
+       int lDepth = maxDepth(node->l); 
+       int rDepth = maxDepth(node->r); 
+  
+       // use the larger one 
+       if (lDepth > rDepth)  
+           return(lDepth+1); 
+       else return(rDepth+1); 
+   } 
+}
+  void display(struct binary *node)
+{	
+    if (node == NULL) 
+		return; 
+
+	
+	display(node->l); 
+
+	
+	printf("%d ",node->data); 
+
+	
+	display(node->r); 
+ }
+void createtree(){
+	 struct binary *root,*a,*b,*c,*d;
+   int x;
+	root=newnode(12);
+	
+	a=newnode(13);
+	root->l=a;
+	b=newnode(23);
+    a->l=b;
+    
+    c=newnode(34);
+    root->r=c;
+    
+    d=newnode(14);	
+
+    a->r=d;
+    x=maxDepth(root);
+    printf("%d",x);
+	display(root);
+	deletion(14,root);
+	display(root);	
+} 
+deletion(int val,struct binary *a)
+{  	 
+	 if(a->data==val)
+	 	{
+	 		if(a->l==NULL&&a->r==NULL)
+	 		a=NULL;
+	 		else
+	 		printf("it is not leaf node");
+		 }
+      deletion(val,a->l);	
+      deletion(val,a->r);	
+	 
+}
+ 
+   int main()
+{
+	
+	createtree();
+	
+	
+	return 0;
+  }  
